@@ -12,6 +12,12 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
     
+class Tag(models.Model):
+    name=models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     CATAGORY = (
                 ('Indoor', 'Indoor'),
@@ -23,16 +29,21 @@ class Product(models.Model):
     category = models.CharField(max_length=200, null=True, choices=CATAGORY)
     description= models.TextField(null=True)
     date_created= models.DateTimeField(auto_now_add=True, null=True)
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.name
+
+
     
 class Order(models.Model):
     STATUS = (
              ('Pending','Pending'),
              ('Out for delevery', 'Out for delivery'),
-             ('Delivered', 'Delivered')
+             ('Delivered', 'Delivered'),
              )
     
+    customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, null=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=150, null=True, choices=STATUS)
