@@ -1,0 +1,17 @@
+{% extends 'accounts/main.html'%}
+{% block title%} Order Form {% endblock%}
+{% block content %}
+    <br>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-body text-center">
+                <p>Are You sure delete {{item}} ?</p>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <a href="{% url 'home' %}" class="btn btn-primary">Cencel</a>
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
